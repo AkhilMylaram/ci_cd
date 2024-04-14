@@ -1,0 +1,22 @@
+all:
+  hosts:
+    manager:
+      ansible_host: 172.31.89.236
+      ansible_ssh_private_key_file: clientkey.pem
+      ansible_user: ubuntu
+    slave1:
+      ansible_host: 172.31.83.172
+      ansible_ssh_private_key_file: clientkey.pem
+    slave2:
+      ansible_host: 172.31.88.195
+      ansible_ssh_private_key_file: clientkey.pem
+
+  children:
+    slaves:
+      hosts:
+        slave1:
+        slave2:
+    vars:
+      ansible_ssh_private_key_file: clientkey.pem
+      ansible_user: ubuntu
+
