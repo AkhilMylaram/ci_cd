@@ -1,0 +1,14 @@
+---
+- name: Add Jenkins repository key
+  hosts: manager
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Running the shell script file to install jenkins
+      script: ./install_jenkins.sh
+      register: shell_out
+
+    - name: printing the variable sheel
+      debug:
+        var: shell_out
