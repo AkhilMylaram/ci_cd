@@ -1,6 +1,6 @@
 ---
 - name: Install and start Jenkins
-  hosts: slave2
+  hosts: manager
   become: true
   tasks:
     - name: setting file permission 400 to clientfile.pem
