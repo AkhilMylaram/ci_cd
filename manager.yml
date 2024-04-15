@@ -5,12 +5,12 @@
   tasks:
     - name: setting file permission 400 to clientfile.pem
       ansible.builtin.file:
-        path: "/home/ubuntu/ex1/ci_cd/clientkey.pem"
+        path: "/home/ubuntu/ci_cd/clientkey.pem"
         mode: '0400'
 
     - name: giving 777 permission to basic_commands.sh file
       ansible.builtin.file:
-        path: "/home/ubuntu/ex1/basic_commands.sh"
+        path: "/home/ubuntu/ci_cd/basic_commands.sh"
         mode: '0777'
 
 
