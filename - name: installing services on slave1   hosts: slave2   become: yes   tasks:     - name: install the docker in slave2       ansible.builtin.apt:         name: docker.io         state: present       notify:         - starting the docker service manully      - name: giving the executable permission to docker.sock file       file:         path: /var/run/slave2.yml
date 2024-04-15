@@ -1,0 +1,30 @@
+- name: installing services on slave1
+  hosts: slave2
+  become: yes
+  tasks:
+    - name: install the docker in slave2
+      ansible.builtin.apt:
+        name: docker.io
+        state: present
+      notify:
+        - starting the docker service manully
+
+    - name: giving the executable permission to docker.sock file
+      file:
+        path: /var/run/docker.sock
+        owner: root
+        group: docker
+        mode: '0777'
+      register: socket
+
+    - name: printing the socket variable
+      debug:
+        var: socket
+
+    - name: installing the docker compose
+      ansible.builtin.apt:
+        name: docker-compose
+        state: present
+  handlers:
+   - name: starting the docker service manully
+     command: systemctl start docker 
