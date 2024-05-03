@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbit-deployment
+  labels:
+    app: rab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rab
+  template:
+    metadata:
+      labels:
+        app: rab
+    spec:
+      containers:
+        - name: rabbitmq-container
+          image: rabbitmq
+          ports:
+           - name: rabbitmq-port
+             containerPort: 15672
+          env:
+           - name: RABBITMQ_DEFAULT_PASS
+             value: guest
+           - name: RABBITMQ_DEFAULT_USER
+             value: guest   
