@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emango-deployment
+  labels:
+    app: emango
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: emango
+  template:
+    metadata:
+      labels:
+        app: emango
+    spec:
+      containers:
+        - name: emango-container
+          image: akhilmylaram/emartapp:emartapp-mongo
+          ports:
+            - name: emango-port
+              containerPort: 27017
+          env:
+            - name: MONGO_INITDB_DATABASE
+              value: epoc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: emongo
+spec:
+  ports:
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP
+  type: ClusterIP
+  selector:
+    app: emango
+
