@@ -1,0 +1,10 @@
+Here at helm/charts/templates  you find the kubernetes deployment and service yml files
+for the register deploy there is an variable called image: {{ .Values.appimage }} we need to give this variable while running the 
+helm command
+
+helm list
+helm install my-release helm/charts --set appimage=akhilmylaram/register
+
+helm uninstall my-release
+
+
