@@ -7,4 +7,5 @@ helm install my-release helm/charts --set appimage=akhilmylaram/register
 
 helm uninstall my-release
 
+sh "helm upgrade --install --force vprofile-stack helm/vprofilecharts --set appimage=${registry}:V${BUILD_NUMBER} --namespace prod"
 
