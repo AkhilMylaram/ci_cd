@@ -24,8 +24,15 @@ spec:
         - containerPort: 15672
         env:
           - name: RABBITMQ_DEFAULT_USER
-            value: "guest"
+            valueFrom:
+              configMapKeyRef:
+                name: vprofile-configmap
+                key: rabbitmq-username
+
           - name: RABBITMQ_DEFAULT_PASS
-            value: "guest"
+            valueFrom:
+              secretKeyRef:
+                name: vprofile-secret
+                key: rabbitmq-pass
         resources: {}
 status: {}
