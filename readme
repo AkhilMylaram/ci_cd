@@ -46,4 +46,7 @@ rabbitmq
 
 NOTE: in service file at metadata the name is the name of the host address or host name that is the name service runs
 
+      jdbc.password and rabbitmq.password both are kept into the secret.yml file with type opaque
+      rabbitmq.username is kept into the configmap file 
+
 
