@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: vprofile-db
+  name: vprofile-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vprofile-db
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: vprofile-db
+    spec:
+      containers:
+      - image: vprofile/vprofiledb:V1
+        name: vprofiledb
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: vprodbpass
+        resources: {}
+status: {}
