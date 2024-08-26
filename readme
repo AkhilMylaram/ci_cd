@@ -17,3 +17,33 @@ using the kubernetes for the deployment
 	kind cluster is used
 	apiVersion: kind.x-k8s.io/v1alpha4
 
+applications.properties file
+#JDBC Configutation for Database Connection
+jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://vprodb:3306/accounts?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+jdbc.username=root
+jdbc.password=vprodbpass
+
+#Memcached Configuration For Active and StandBy Host
+#For Active Host
+memcached.active.host=vprocache01
+memcached.active.port=11211
+#For StandBy Host
+memcached.standBy.host=vprocache02
+memcached.standBy.port=11211
+
+#RabbitMq Configuration
+rabbitmq.address=vpromq01
+rabbitmq.port=15672
+rabbitmq.username=guest
+rabbitmq.password=guest
+
+
+for the memcached and rabbitmq we used the offical direct images and assigned there env values , host , port numbers to it
+images
+memcached
+rabbitmq
+
+NOTE: in service file at metadata the name is the name of the host address or host name that is the name service runs
+
+

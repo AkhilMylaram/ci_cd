@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: vprofile-rabbitmq
+  name: vprofile-rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vprofile-rabbitmq
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: vprofile-rabbitmq
+    spec:
+      containers:
+      - image: rabbitmq
+        name: rabbitmq
+        ports:
+        - containerPort: 15672
+        env:
+          - name: RABBITMQ_DEFAULT_USER
+            value: "guest"
+          - name: RABBITMQ_DEFAULT_PASS
+            value: "guest"
+        resources: {}
+status: {}
