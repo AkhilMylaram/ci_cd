@@ -1,19 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
+  name: vprofile-db
   labels:
     app: vprofile-db
-  name: vprofile-db
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: vprofile-db
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: vprofile-db
     spec:
@@ -28,6 +25,11 @@ spec:
               secretKeyRef:
                 name: vprofile-secret
                 key: db-pass
+        volumeMounts:
+          - name: db-vol
+            mountPath: /var/lib/mysql
+      volumes:
+        - name: db-vol
+          persistentVolumeClaim:
+            claimName: vprofile-pvc
 
-        resources: {}
-status: {}

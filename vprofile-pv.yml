@@ -1,0 +1,15 @@
+# PersistentVolume Configuration
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: vprofile-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /opt/mysql-data  # Directory on the host where data is stored
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
