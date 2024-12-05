@@ -1,0 +1,81 @@
+Spring boot project
+config directory where the config.yml file is to run the kind cluster with 1 worker node
+vprofile project
+git clone-->mvn test-->mvn build-->codescanner-->repository-->kubernetescluster deploy
+
+appimage: vprofile/vprofileapp:V1
+	runs on port 8080
+	
+dbimage: vprofile/vprofiledb:V1
+	in application.properties file
+	host: vprodb
+	password: vprodbpass
+
+	this image had intially created accounts database already 
+	mysql -u root -pvprodbpass
+
+using the kubernetes for the deployment
+	kind cluster is used
+	apiVersion: kind.x-k8s.io/v1alpha4
+
+applications.properties file
+#JDBC Configutation for Database Connection
+jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://vprodb:3306/accounts?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+jdbc.username=root
+jdbc.password=vprodbpass
+
+#Memcached Configuration For Active and StandBy Host
+#For Active Host
+memcached.active.host=vprocache01
+memcached.active.port=11211
+#For StandBy Host
+memcached.standBy.host=vprocache02
+memcached.standBy.port=11211
+
+#RabbitMq Configuration
+rabbitmq.address=vpromq01
+rabbitmq.port=15672
+rabbitmq.username=guest
+rabbitmq.password=guest
+
+
+for the memcached and rabbitmq we used the offical direct images and assigned there env values , host , port numbers to it
+images
+memcached
+rabbitmq
+
+NOTE: in service file at metadata the name is the name of the host address or host name that is the name service runs
+
+      jdbc.password and rabbitmq.password both are kept into the secret.yml file with type opaque
+      rabbitmq.username is kept into the configmap file 
+
+added the volumes to db deployment
+
+if we create the volume like below the data directory will be created in the wokernode i,e in kind cluster the worker node
+is the container
+
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: dbvol
+      volumes:
+        - name: dbvol
+          hostPath:
+            path: /data
+            type: DirectoryOrCreate
+
+
+we need to get into the container to see the data directory and the data in it
+
+docker exec -it 1ca976d0dfa8 /bin/bash
+
+1ca976d0dfa8 -- worker node id
+
+
+Created the Persistent volume and persentent volume claim
+hostPath: /opt/mysql-data
+
+get into the node or docker container node for kind cluster then go to /opt/mysql-data
+
+
+
