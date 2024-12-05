@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emartdb-deiployment
+  labels:
+    app: emartdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+          app: emartdb
+  template:
+    metadata:
+      labels:
+        app: emartdb
+    spec:
+      containers:
+        - name: emartdb-container
+          image: akhilmylaram/emartapp:emartapp-mysql
+          ports:
+            - name: emartdb-port
+              containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: emartdbpass
+            - name: MYSQL_DATABASE
+              value: books
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: emartdb
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP
+  type: ClusterIP
+  selector:
+    app: emartdb
+
